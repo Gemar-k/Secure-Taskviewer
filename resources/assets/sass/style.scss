@@ -1,0 +1,27 @@
+@media (min-width: 993px) {
+  .body_container {
+    padding-left: 300px;
+  }
+}
+
+.transparent-custom{
+  background: transparent;
+  border: transparent;
+  cursor: pointer;
+}
+
+.color_picker_custom{
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+}
+
+.center_custom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title_site{
+  margin: 20% 0px 20% 0px;
+}
