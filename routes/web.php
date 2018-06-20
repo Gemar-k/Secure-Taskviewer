@@ -22,9 +22,9 @@ Route::get('/home', 'TaskController@index')->name('home');
 
 Route::get('/bookmarks', 'TaskController@indexBookmarks')->name('bookmark-page');
 
-Route::get('/settings', 'ProfileController@index')->name('settings-page');
+Route::get('/settings', 'ProfileController@index')->middelware('auth')->name('settings-page');
 
-Route::get('/create', 'Taskcontroller@indexcreate')->name('create-page');
+Route::get('/create', 'TaskController@indexcreate')->name('create-page');
 
 //all routes for saving
 

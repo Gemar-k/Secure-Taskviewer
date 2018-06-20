@@ -22,7 +22,7 @@ class TaskController extends Controller
 
     public function indexBookmarks()
     {
-        $tasks = Task::where('bookmark', true)->get();
+        $tasks = Task::where('bookmark', true)->where('user_id', Auth::id())->get();
         return view('home', compact('tasks'));
     }
 
@@ -30,20 +30,25 @@ class TaskController extends Controller
     public function saveBookmarks($task)
     {
         $post = Task::findOrFail($task);
-        if (\request('bookmark') == true) {
-            $post->bookmark = 0;
-        } else {
-            $post->bookmark = 1;
+        if ($post->user_id == Auth::id()){
+            if (\request('bookmark') == true) {
+                $post->bookmark = 0;
+            } else {
+                $post->bookmark = 1;
+            }
+
+            $post->save();
         }
 
-        $post->save();
         return redirect()->route('home');
     }
 
     public function saveColor($task){
         $post = Task::findOrFail($task);
-        $post->color = \request('colorpicker');
-        $post->save();
+        if ($post->user_id == Auth::id()){
+            $post->color = \request('colorpicker');
+            $post->save();
+        }
 
         return redirect('/home');
     }
@@ -70,7 +75,9 @@ class TaskController extends Controller
 
     public function finishTask($task){
         $post = Task::findOrFail($task);
-        $post->delete();
+        if ($post->user_id == Auth::id()){
+            $post->delete();
+        }
 
         return redirect(route('home'));
     }
